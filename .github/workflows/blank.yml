@@ -1,0 +1,23 @@
+name: Extract ZIP
+
+on:
+  push:
+    paths:
+      - 'foto-master.zip'
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Extract ZIP
+        run: unzip -o foto-master.zip
+      
+      - name: Commit extracted files
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Extract foto-master.zip" || echo "No changes"
+          git push
